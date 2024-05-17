@@ -9,7 +9,7 @@ const mainQuestion = [
     type: 'list',
     name: 'AI_SELECTED',
     message: 'Escolha a IA que deseja usar:',
-    choices: ['GPT', 'GEMINI'],
+    choices: ['GPT ($)', 'GEMINI (Free)'],
   },
 ];
 
@@ -21,7 +21,7 @@ const geminiQuestion = [
       'Informe a sua GEMINI_KEY (https://aistudio.google.com/app/apikey):',
     validate: (input) =>
       !!input ||
-      'A GEMINI_KEY não pode ser vazia. Por favor, informe um valor válido.',
+      'A GEMINI_KEY não pode ser vazia. Por favor, insira um valor válido.',
   },
   {
     type: 'input',
@@ -29,7 +29,7 @@ const geminiQuestion = [
     message: 'Informe o prompt para o Gemini:',
     validate: (input) =>
     !!input ||
-    'A GEMINI_PROMPT não pode ser vazia. Por favor, informe um valor válido.',
+    'A GEMINI_PROMPT não pode ser vazia. Por favor, insira um valor válido.',
   },
 ];
 
@@ -60,13 +60,13 @@ inquirer.prompt(mainQuestion).then((answers) => {
     inquirer.prompt(geminiQuestion).then((geminiAnswer) => {
       envConfig += `GEMINI_KEY=${geminiAnswer.GEMINI_KEY}\nGEMINI_PROMPT=${geminiAnswer.GEMINI_PROMPT}\n`;
       fs.writeFileSync('.env', envConfig, { encoding: 'utf8' });
-      console.log('Configuração para GEMINI salva com sucesso! 🎉');
+      console.log('GEMINI Configurado! 🎉');
     });
   } else {
     inquirer.prompt(gptQuestions).then((gptAnswers) => {
       envConfig += `OPENAI_KEY=${gptAnswers.OPENAI_KEY}\nOPENAI_ASSISTANT=${gptAnswers.OPENAI_ASSISTANT}\n`;
       fs.writeFileSync('.env', envConfig, { encoding: 'utf8' });
-      console.log('Configuração para GPT salva com sucesso! 🎉');
+      console.log('GPT Configurado! 🎉');
     });
   }
 });
